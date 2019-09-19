@@ -3,6 +3,8 @@
 ## Usage
 
 ```javascript
+const { JsonBox } = require('jsonbox-node');
+
 async function() {
     const jbn = new JsonBox();
 
