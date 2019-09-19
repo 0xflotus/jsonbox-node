@@ -30,75 +30,37 @@ export class JsonBox {
         }
 
         if (Object.keys(parameters).length > 0) {
-            const urlEncodedParams = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
-            url = `${url}?${urlEncodedParams}`;
+            url = `${url}?${Object.keys(parameters).map(key => `${key}=${parameters[key]}`).join('&')}`;
         }
 
         return url;
     }
 
     public getRecordId(data: any): string | string[] {
-        if (Array.isArray(data)) {
-            const array = [];
-            data.forEach(record => {
-                array.push(record[JsonBox.RECORD_ID_KEY]);
-            });
-            return array;
-        } else {
-            return data[JsonBox.RECORD_ID_KEY];
-        }
+        return Array.isArray(data) ? data.map(record => record[JsonBox.RECORD_ID_KEY]) : data[JsonBox.RECORD_ID_KEY];
     }
 
     public async read(boxId: string, collection?: string, sort?: string, skip?: string, limit?: string, query?: string) {
-        const url = this.getUrl(boxId, collection, sort, skip, limit, query);
-
-        const response = await axios.get(url);
-        if (response.status === 200) {
-            return response.data;
-        }
-        else {
-            return false;
-        }
+        const response = await axios.get(this.getUrl(boxId, collection, sort, skip, limit, query));
+        return response.status === 200 ? response.data : false;
     }
 
     public async create(data: any, boxId: string, collection?: string) {
-        const url = this.getUrl(boxId, collection);
-        const response = await axios.post(url, data);
-        if (response.status === 200) {
-            return response.data;
-        }
-        else {
-            return false;
-        }
+        const response = await axios.post(this.getUrl(boxId, collection), data);
+        return response.status === 200 ? response.data : false;
     }
 
     public async update(data: any, boxId: string, recordId: string) {
-        const url = this.getUrl(boxId, recordId);
-        const response = await axios.put(url, data);
-        if (response.status === 200) {
-            return response.data;
-        }
-        else {
-            return false;
-        }
+        const response = await axios.put(this.getUrl(boxId, recordId), data);
+        return response.status === 200 ? response.data : false;
     }
 
     public async delete(boxId: string, recordId: string) {
-        const url = this.getUrl(boxId, recordId);
-        const response = await axios.delete(url);
-        if (response.status === 200) {
-            return response.data;
-        }
-        else {
-            return false;
-        }
+        const response = await axios.delete(this.getUrl(boxId, recordId));
+        return response.status === 200 ? response.data : false;
     }
 
     public async deleteMany(boxId: string, recordIds: string[]) {
-        const array = [];
-        recordIds.forEach(id => {
-            array.push(this.delete(boxId, id));
-        });
-        return array;
+        return recordIds.map(id => this.delete(boxId, id));
     }
 } 
