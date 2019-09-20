@@ -1,6 +1,6 @@
 {
   "name": "jsonbox-node",
-  "version": "1.0.2",
+  "version": "1.0.2-rc2",
   "author": {
     "name": "0xflotus"
   },
@@ -15,5 +15,13 @@
   },
   "dependencies": {
     "axios": "^0.19.0"
+  },
+  "keywords": [
+    "json box",
+    "node api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xflotus/jsonbox-node.git"
   }
 }

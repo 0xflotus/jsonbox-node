@@ -8,7 +8,9 @@
 const { JsonBox } = require('jsonbox-node');
 
 async function() {
-    const jbn = new JsonBox();
+    // this will use jsonbox.io as backend,  
+    // you can put your custom jsonbox instance link here 
+    const jbn = new JsonBox(); 
 
     // Create a record
     await jbn.create({
