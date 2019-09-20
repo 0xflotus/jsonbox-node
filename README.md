@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/jsonbox-node.svg)](https://badge.fury.io/js/jsonbox-node)
+
 # JsonBox for Node
 
 ## Usage
