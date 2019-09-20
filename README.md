@@ -2,6 +2,8 @@
 
 # JsonBox for Node
 
+A Node Wrapper for https://jsonbox.io/ 
+
 ## Usage
 
 ```javascript
