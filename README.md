@@ -18,8 +18,17 @@ async function() {
         age: 42
     }, BOX_ID);
 
+    // Create a record in a collection
+    await jbn.create({
+        name: "Foobar",
+        level: 1337
+    }, BOX_ID, "workers");
+
     // Read records
     await jbn.read(BOX_ID);
+
+    // read records in collection with filters
+    await jbn.read(BOX_ID, "users", { sort: "age", query: "age:>23", limit: "1", skip: "2" })
 
     // Update a record
     await jbn.update({ age: 43 }, BOX_ID, recordId);

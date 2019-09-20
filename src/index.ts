@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+interface JsonBoxConfig {
+    sort?: string;
+    skip?: string;
+    limit?: string;
+    query?: string;
+}
+
 export class JsonBox {
     private static RECORD_ID_KEY: string = "_id";
     private jsonboxhost: string;
@@ -8,29 +15,30 @@ export class JsonBox {
         this.jsonboxhost = jsonboxhost;
     }
 
-    private getUrl(boxId: string, collection?: string, sort?: string, skip?: string, limit?: string, query?: string): string {
+    private getUrl(boxId: string, collection?: string, config?: JsonBoxConfig): string {
         let url = `${this.jsonboxhost}/${boxId}`;
+        const { sort, skip, limit, query } = config;
 
         if (collection) {
             url = `${url}/${collection}`;
         }
 
-        let parameters = {};
+        let parameters = new Map<string, string>();
         if (sort) {
-            parameters["sort"] = sort;
+            parameters.set("sort", sort);
         }
         if (skip) {
-            parameters["skip"] = skip;
+            parameters.set("skip", skip);
         }
         if (limit) {
-            parameters["limit"] = limit;
+            parameters.set("limit", limit);
         }
         if (query) {
-            parameters["query"] = query;
+            parameters.set("q", query);
         }
 
-        if (Object.keys(parameters).length > 0) {
-            url = `${url}?${Object.keys(parameters).map(key => `${key}=${parameters[key]}`).join('&')}`;
+        if (parameters.size > 0) {
+            url = `${url}?${[...parameters.keys()].map(key => `${key}=${parameters.get(key)}`).join('&')}`;
         }
 
         return url;
@@ -40,8 +48,8 @@ export class JsonBox {
         return Array.isArray(data) ? data.map(record => record[JsonBox.RECORD_ID_KEY]) : data[JsonBox.RECORD_ID_KEY];
     }
 
-    public async read(boxId: string, collection?: string, sort?: string, skip?: string, limit?: string, query?: string) {
-        const response = await axios.get(this.getUrl(boxId, collection, sort, skip, limit, query));
+    public async read(boxId: string, collection?: string, config?: JsonBoxConfig) {
+        const response = await axios.get(this.getUrl(boxId, collection, config));
         return response.status === 200 ? response.data : false;
     }
 
