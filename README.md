@@ -4,6 +4,10 @@
 
 A Node Wrapper for https://jsonbox.io/ 
 
+## Install
+
+`npm install --save jsonbox-node` or `yarn add jsonbox-node`
+
 ## Usage
 
 ```javascript
