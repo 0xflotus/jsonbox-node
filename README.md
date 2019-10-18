@@ -34,7 +34,7 @@ async function() {
     await jbn.read(BOX_ID);
 
     // read records in collection with filters
-    await jbn.read(BOX_ID, "users", { sort: "age", query: "age:>23", limit: "1", skip: "2" })
+    await jbn.read(BOX_ID, "users", { sort: "age", query: "age:>23", limit: 1, skip: 2 })
 
     // Update a record
     await jbn.update({ age: 43 }, BOX_ID, recordId);
