@@ -48,23 +48,23 @@ export class JsonBox {
         return Array.isArray(data) ? data.map(record => record[JsonBox.RECORD_ID_KEY]) : data[JsonBox.RECORD_ID_KEY];
     }
 
-    public async read(boxId: string, collection?: string, config?: JsonBoxConfig) {
+    public async read(boxId: string, collection?: string, config: JsonBoxConfig = {}) {
         const response = await axios.get(this.getUrl(boxId, collection, config));
         return response.status === 200 ? response.data : false;
     }
 
     public async create(data: any, boxId: string, collection?: string) {
-        const response = await axios.post(this.getUrl(boxId, collection), data);
+        const response = await axios.post(this.getUrl(boxId, collection, {}), data);
         return response.status === 200 ? response.data : false;
     }
 
     public async update(data: any, boxId: string, recordId: string) {
-        const response = await axios.put(this.getUrl(boxId, recordId), data);
+        const response = await axios.put(this.getUrl(boxId, recordId, {}), data);
         return response.status === 200 ? response.data : false;
     }
 
     public async delete(boxId: string, recordId: string) {
-        const response = await axios.delete(this.getUrl(boxId, recordId));
+        const response = await axios.delete(this.getUrl(boxId, recordId, {}));
         return response.status === 200 ? response.data : false;
     }
 
