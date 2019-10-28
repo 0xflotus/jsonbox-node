@@ -16,6 +16,7 @@ const { JsonBox } = require('jsonbox-node');
 async function() {
     // this will use jsonbox.io as backend,  
     // you can put your custom jsonbox instance link here 
+    // or you can pass a customized AxiosRequestConfig as second parameter
     const jbn = new JsonBox(); 
 
     // Create a record
@@ -44,8 +45,5 @@ async function() {
 
     // Delete a record set
     await jbn.deleteMany(BOX_ID, recordIds);
-    
-    // Read with overridden AxiosConfig and no config
-    await jbn.read(BOX_ID, "users", undefined, { maxContentLength: 2000 });
 }
 ```
