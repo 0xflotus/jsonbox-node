@@ -46,6 +46,6 @@ async function() {
     await jbn.deleteMany(BOX_ID, recordIds);
     
     // Read with overridden AxiosConfig and no config
-    await jbn.read(BOX_ID, "users", undefined, { maxContentLength: 2_000 });
+    await jbn.read(BOX_ID, "users", undefined, { maxContentLength: 2000 });
 }
 ```
