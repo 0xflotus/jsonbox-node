@@ -10,31 +10,92 @@ A Node Wrapper for https://jsonbox.io/
 
 ## Usage
 
+Typescript
+```typescript
+import { JsonBox } from './src';
+
+interface Worker {
+    name: string
+    level: number
+}
+
+interface User {
+    name: string
+    age: number
+}
+
+const BOX_ID = 'abc123';
+const recordId = 'abc123';
+const recordIds = [recordId];
+
+const main = async () => {
+    // By default this will use jsonbox.io as the host
+    // you can use your own custom instance by providing
+    // the url as the first parameter.
+    const jbn = new JsonBox();
+
+    // Create a record
+    await jbn.create<User>({
+        name: 'Test',
+        age: 42
+    }, BOX_ID);
+
+    // Create a record in a collection
+    await jbn.create<Worker>({
+        name: 'Foobar',
+        level: 1337
+    }, BOX_ID, 'workers');
+
+    // Read records
+    await jbn.read<Worker>(BOX_ID);
+
+    // Read records in collection with filters
+    await jbn.read<User>(BOX_ID, 'users', { sort: 'age', query: 'age:>23', limit: 1, skip: 2 });
+
+    // Update a record
+    await jbn.update<User>({ age: 43 }, BOX_ID, recordId);
+
+    // Delete a record
+    await jbn.delete(BOX_ID, recordId);
+
+    // Delete a record set
+    await jbn.deleteMany(BOX_ID, recordIds);
+};
+
+main().catch(console.error);
+```
+
+Javascript
 ```javascript
 const { JsonBox } = require('jsonbox-node');
 
-async function() {
-    // this will use jsonbox.io as backend,  
-    // you can put your custom jsonbox instance link here 
-    const jbn = new JsonBox(); 
+const BOX_ID = 'abc123';
+const recordId = 'abc123';
+const recordIds = [recordId];
+
+const main = async () => {
+    // By default this will use jsonbox.io as the host
+    // you can use your own custom instance by providing
+    // the url as the first parameter.
+    const jbn = new JsonBox();
 
     // Create a record
     await jbn.create({
-        name: "Test",
+        name: 'Test',
         age: 42
     }, BOX_ID);
 
     // Create a record in a collection
     await jbn.create({
-        name: "Foobar",
+        name: 'Foobar',
         level: 1337
-    }, BOX_ID, "workers");
+    }, BOX_ID, 'workers');
 
     // Read records
     await jbn.read(BOX_ID);
 
     // read records in collection with filters
-    await jbn.read(BOX_ID, "users", { sort: "age", query: "age:>23", limit: "1", skip: "2" })
+    await jbn.read(BOX_ID, 'users', { sort: 'age', query: 'age:>23', limit: 1, skip: 2 });
 
     // Update a record
     await jbn.update({ age: 43 }, BOX_ID, recordId);
@@ -44,5 +105,7 @@ async function() {
 
     // Delete a record set
     await jbn.deleteMany(BOX_ID, recordIds);
-}
+};
+
+main().catch(console.error);
 ```

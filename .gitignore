@@ -1,2 +1,15 @@
+# Node
 node_modules
-dist
+
+# Npm
+package
+*.tgz
+
+# Coverage
+coverage
+coverage-ts
+
+# Typescript
+app/**/*.js
+app/**/*.d.ts
+app/**/*.d.ts.map

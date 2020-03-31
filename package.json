@@ -4,20 +4,30 @@
   "author": {
     "name": "0xflotus"
   },
-  "main": "dist/index.js",
+  "main": "app/index.js",
+  "types": "app/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "prepare": "npm run build",
+    "build": "npm run build:types && npm run build:code",
+    "build:code": "tsc",
+    "build:types": "tsc -d --declarationDir app --declarationMap --emitDeclarationOnly",
+    "coverage": "typescript-coverage-report"
   },
+  "files": [
+    "app"
+  ],
   "devDependencies": {
-    "@types/axios": "^0.14.0",
-    "typescript": "^3.6.3"
+    "@types/node-fetch": "2.5.5",
+    "typescript": "^3.6.3",
+    "typescript-coverage-report": "0.1.3"
   },
   "dependencies": {
-    "axios": "^0.19.0"
+    "node-fetch": "2.6.0"
   },
   "keywords": [
     "json box",
+    "jsonbox",
     "node api"
   ],
   "repository": {
