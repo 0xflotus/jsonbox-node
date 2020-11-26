@@ -47,3 +47,8 @@ async function() {
     await jbn.deleteMany(BOX_ID, recordIds);
 }
 ```
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/0xflotus/jsonbox-node.svg)](https://starchart.cc/0xflotus/jsonbox-node)
