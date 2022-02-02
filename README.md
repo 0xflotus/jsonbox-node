@@ -1,5 +1,11 @@
 [![npm version](https://badge.fury.io/js/jsonbox-node.svg)](https://badge.fury.io/js/jsonbox-node)
 
+# !WARNING
+
+There was some issues with the cloud instance of https://jsonbox.io/. So this repository will be archived. 
+
+You can find the source code of jsonbox.io [here](https://github.com/vasanthv/jsonbox).
+
 # JsonBox for Node
 
 A Node Wrapper for https://jsonbox.io/ 
